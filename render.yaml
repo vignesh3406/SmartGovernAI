@@ -22,22 +22,6 @@ services:
       - key: FRONTEND_URL
         value: "https://smartgov-frontend.onrender.com" # Update after frontend is created
 
-  # Frontend Vite Service
-  - type: web
-    name: smartgov-frontend
-    env: static
-    region: ohio
-    buildCommand: "cd frontend && npm install && npm run build"
-    staticPublishPath: "./frontend/dist"
-    envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: smartgov-backend
-          envVarKey: RENDER_EXTERNAL_URL
-
 databases:
   - name: smartgov-db
     databaseName: smartgov
