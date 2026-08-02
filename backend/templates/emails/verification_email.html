@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email - SmartGov AI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            color: #334155;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .header {
+            background-color: #2563eb;
+            background: linear-gradient(135deg, #2563eb 0%, #0d9488 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .content {
+            padding: 40px 32px;
+            line-height: 1.6;
+        }
+        .welcome {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            color: #1e293b;
+        }
+        .btn-container {
+            text-align: center;
+            margin: 32px 0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+            transition: background-color 0.2s;
+        }
+        .link-text {
+            word-break: break-all;
+            font-size: 13px;
+            color: #64748b;
+            background-color: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin-top: 24px;
+        }
+        .footer {
+            background-color: #f1f5f9;
+            text-align: center;
+            padding: 24px;
+            font-size: 14px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+        }
+        .expiry {
+            font-size: 13px;
+            color: #e11d48;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SmartGov AI</h1>
+        </div>
+        <div class="content">
+            <p class="welcome">Hello, {{ full_name }}!</p>
+            <p>Thank you for registering with SmartGov AI. To complete your registration and activate your account, please verify your email address by clicking the button below:</p>
+            
+            <div class="btn-container">
+                <a href="{{ verification_url }}" class="btn" target="_blank">Verify Email Address</a>
+            </div>
+            
+            <p class="expiry">⚠️ Note: This verification link is valid for 24 hours. If it expires, you can request a new link from the login page.</p>
+            
+            <p>If the button doesn't work, you can copy and paste the link below into your web browser:</p>
+            <div class="link-text">{{ verification_url }}</div>
+            
+            <p style="margin-top: 32px;">If you did not sign up for this account, you can safely ignore this email.</p>
+            <p>Sincerely,<br><strong>SmartGov AI Team</strong></p>
+        </div>
+        <div class="footer">
+            <p>Need support? Reply to this email or contact us at support@smartgov.ai</p>
+            <p>&copy; 2026 SmartGov AI. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

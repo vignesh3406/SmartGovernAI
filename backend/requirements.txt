@@ -1,0 +1,11 @@
+Django>=5.0,<6.0
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+drf-spectacular
+psycopg2-binary
+Pillow
+python-decouple
+django-cors-headers
+supabase
+google-generativeai

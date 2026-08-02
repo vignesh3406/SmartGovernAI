@@ -1,0 +1,358 @@
+# SmartGov AI
+## Phase 1.0 – Identity & User Domain Foundation
+
+You are continuing the SmartGov AI project.
+
+The following phases are already completed.
+
+✅ Phase 0.0 – Project Initialization
+✅ Phase 0.1 – Project Foundation
+✅ Phase 0.2 – Infrastructure Configuration
+
+DO NOT recreate anything.
+
+DO NOT change folder structure.
+
+DO NOT change existing configuration.
+
+Continue from the existing project.
+
+=========================================================
+OBJECTIVE
+=========================================================
+
+Implement the complete Identity Domain.
+
+This phase prepares the entire authentication architecture but DOES NOT implement login, registration, or JWT endpoints.
+
+This phase should only build reusable identity models and supporting architecture.
+
+=========================================================
+IMPLEMENT
+=========================================================
+
+Create a production-ready identity system.
+
+Implement:
+
+• BaseModel (if not already present)
+
+• Custom User Model
+
+• Custom User Manager
+
+• User Profile
+
+• Role Model
+
+• Permission Structure
+
+• User Services
+
+• Validation
+
+• Admin Configuration
+
+• Serializers
+
+• Unit Tests
+
+=========================================================
+DATABASE
+=========================================================
+
+Use existing Supabase PostgreSQL.
+
+Implement models only.
+
+Do not change unrelated tables.
+
+=========================================================
+ROLE MODEL
+=========================================================
+
+Fields
+
+UUID
+
+Role Name
+
+Description
+
+Is Active
+
+Created At
+
+Updated At
+
+Default Roles
+
+Citizen
+
+Officer
+
+Admin
+
+=========================================================
+CUSTOM USER MODEL
+=========================================================
+
+Use AbstractBaseUser.
+
+Use PermissionsMixin.
+
+Authentication should use Email.
+
+Fields
+
+UUID
+
+Full Name
+
+Email
+
+Phone
+
+Password
+
+Role (Foreign Key)
+
+Profile Picture URL
+
+Is Verified
+
+Is Active
+
+Is Staff
+
+Is Superuser
+
+Last Login
+
+Created At
+
+Updated At
+
+=========================================================
+CUSTOM USER MANAGER
+=========================================================
+
+Implement
+
+create_user()
+
+create_superuser()
+
+validate_email()
+
+normalize_email()
+
+=========================================================
+USER PROFILE
+=========================================================
+
+Separate Profile Model
+
+Fields
+
+User
+
+Address
+
+City
+
+State
+
+Country
+
+Postal Code
+
+Bio
+
+Date Of Birth (Optional)
+
+Gender (Optional)
+
+Timezone
+
+Language
+
+Created At
+
+Updated At
+
+=========================================================
+PERMISSIONS
+=========================================================
+
+Create reusable permissions.
+
+CitizenPermission
+
+OfficerPermission
+
+AdminPermission
+
+AuthenticatedPermission
+
+=========================================================
+SERVICES
+=========================================================
+
+Create
+
+AuthenticationService
+
+Methods
+
+create_user()
+
+create_officer()
+
+create_admin()
+
+hash_password()
+
+validate_password()
+
+generate_username_if_needed()
+
+No API logic.
+
+=========================================================
+SERIALIZERS
+=========================================================
+
+Create serializers only.
+
+No business logic.
+
+=========================================================
+DJANGO ADMIN
+=========================================================
+
+Create custom admin panels.
+
+Role Admin
+
+User Admin
+
+Profile Admin
+
+Search
+
+Filters
+
+Ordering
+
+=========================================================
+SIGNALS
+=========================================================
+
+Automatically create User Profile when a User is created.
+
+=========================================================
+VALIDATORS
+=========================================================
+
+Reusable validators
+
+Email
+
+Phone
+
+Password
+
+Name
+
+=========================================================
+FRONTEND
+=========================================================
+
+Prepare authentication folder only.
+
+src/
+
+pages/auth/
+
+components/auth/
+
+hooks/auth/
+
+services/auth/
+
+No UI implementation.
+
+=========================================================
+ROUTES
+=========================================================
+
+Create placeholders
+
+/login
+
+/register
+
+/verify-email
+
+/forgot-password
+
+/reset-password
+
+/profile
+
+No page implementation.
+
+=========================================================
+TESTING
+=========================================================
+
+Generate
+
+Model Tests
+
+Serializer Tests
+
+Permission Tests
+
+=========================================================
+OUTPUT
+=========================================================
+
+Provide
+
+Files Created
+
+Files Modified
+
+Migration Files
+
+Testing Instructions
+
+Architecture Summary
+
+=========================================================
+DO NOT IMPLEMENT
+=========================================================
+
+❌ Registration
+
+❌ Login
+
+❌ JWT
+
+❌ Email Verification
+
+❌ Forgot Password
+
+❌ Profile Update APIs
+
+❌ Complaint Module
+
+❌ AI Module
+
+❌ Officer Module
+
+❌ Admin Dashboard
+
+Stop after the Identity Domain is complete.
