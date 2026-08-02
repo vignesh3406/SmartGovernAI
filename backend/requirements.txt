@@ -9,3 +9,5 @@ python-decouple
 django-cors-headers
 supabase
 google-generativeai
+gunicorn
+whitenoise

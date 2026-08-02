@@ -1,0 +1,46 @@
+services:
+  # Backend Django Service
+  - type: web
+    name: smartgov-backend
+    env: python
+    region: ohio
+    buildCommand: "./backend/build.sh"
+    startCommand: "cd backend && gunicorn config.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: smartgov-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "*" # Set this to your frontend URL in production
+      - key: FRONTEND_URL
+        value: "https://smartgov-frontend.onrender.com" # Update after frontend is created
+
+  # Frontend Vite Service
+  - type: web
+    name: smartgov-frontend
+    env: static
+    region: ohio
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: smartgov-backend
+          envVarKey: RENDER_EXTERNAL_URL
+
+databases:
+  - name: smartgov-db
+    databaseName: smartgov
+    user: smartgov_user
+    plan: free
+    region: ohio
