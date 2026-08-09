@@ -167,20 +167,60 @@ export default function ComplaintDetails() {
             <EvidenceUploadForm complaintId={id} onUploadSuccess={loadDetails} />
           )}
 
-          {/* Image Gallery */}
-          {complaint.images?.length > 0 && (
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm space-y-4">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white">Uploaded Photos</h3>
-              <div className="grid grid-cols-3 gap-4">
-                {complaint.images.map((img) => (
-                  <div key={img.id} className="relative group rounded-xl overflow-hidden aspect-video border border-slate-200 dark:border-slate-700">
-                    <img src={img.image_url} className="w-full h-full object-cover" />
-                    {img.is_resolution && (
-                      <span className="absolute top-2 left-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Resolution</span>
-                    )}
-                  </div>
-                ))}
+          {/* Image Gallery & Resolution Evidence */}
+          {(complaint.images?.length > 0 || complaint.evidence?.length > 0) && (
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white">Uploaded Photos & Work Evidence</h3>
+                <span className="text-xs font-semibold text-slate-400">
+                  {(complaint.images?.length || 0) + (complaint.evidence?.length || 0)} photos attached
+                </span>
               </div>
+
+              {/* Officer Work Evidence & Resolution Proof */}
+              {complaint.evidence?.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Officer Work & Resolution Evidence</h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {complaint.evidence.map((ev) => (
+                      <div key={ev.id} className="relative group rounded-xl overflow-hidden aspect-video border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <img src={ev.image_url} alt={ev.evidence_type} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <span className={`absolute top-2 left-2 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-md ${
+                          ev.evidence_type === 'After' || ev.evidence_type === 'Resolution'
+                            ? 'bg-emerald-600'
+                            : 'bg-blue-600'
+                        }`}>
+                          {ev.evidence_type} Proof
+                        </span>
+                        {ev.uploaded_by_name && (
+                          <span className="absolute bottom-2 left-2 right-2 bg-slate-900/80 backdrop-blur-sm text-white text-[9px] font-semibold px-2 py-1 rounded-md truncate">
+                            By: {ev.uploaded_by_name}
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Citizen Initial Complaint Photos */}
+              {complaint.images?.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Submitted Grievance Photos</h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {complaint.images.map((img) => (
+                      <div key={img.id} className="relative group rounded-xl overflow-hidden aspect-video border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <img src={img.image_url} alt="Grievance photo" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        {img.is_resolution && (
+                          <span className="absolute top-2 left-2 bg-emerald-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-md">
+                            Resolution Proof
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

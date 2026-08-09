@@ -99,12 +99,13 @@ class OfficerWorkflowService:
             uploaded_by=officer
         )
 
-        if evidence_type == "After":
-            ComplaintImage.objects.create(
-                complaint=complaint,
-                image_url=image_url,
-                is_resolution=True
-            )
+        # Sync to ComplaintImage so both citizen and officer view resolution evidence
+        is_res = (str(evidence_type).strip().lower() in ["after", "resolution", "completed"])
+        ComplaintImage.objects.create(
+            complaint=complaint,
+            image_url=image_url,
+            is_resolution=is_res
+        )
 
         ComplaintTimeline.objects.create(
             complaint=complaint,

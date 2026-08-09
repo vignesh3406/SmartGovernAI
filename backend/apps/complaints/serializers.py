@@ -8,7 +8,8 @@ from .models import (
     Complaint,
     ComplaintImage,
     ComplaintTimeline,
-    ComplaintFeedback
+    ComplaintFeedback,
+    ComplaintEvidence
 )
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -55,6 +56,13 @@ class ComplaintFeedbackSerializer(serializers.ModelSerializer):
         model = ComplaintFeedback
         fields = ['id', 'rating', 'comment', 'created_at']
 
+class ComplaintEvidenceSerializer(serializers.ModelSerializer):
+    uploaded_by_name = serializers.CharField(source='uploaded_by.full_name', read_only=True)
+
+    class Meta:
+        model = ComplaintEvidence
+        fields = ['id', 'image_url', 'evidence_type', 'description', 'uploaded_by_name', 'created_at']
+
 class ComplaintSerializer(serializers.ModelSerializer):
     citizen_name = serializers.CharField(source='citizen.full_name', read_only=True)
     citizen_email = serializers.CharField(source='citizen.email', read_only=True)
@@ -65,6 +73,7 @@ class ComplaintSerializer(serializers.ModelSerializer):
     severity_detail = SeveritySerializer(source='severity', read_only=True)
     
     images = ComplaintImageSerializer(many=True, read_only=True)
+    evidence = ComplaintEvidenceSerializer(many=True, read_only=True)
     timeline = ComplaintTimelineSerializer(many=True, read_only=True)
     feedback = ComplaintFeedbackSerializer(read_only=True)
 
