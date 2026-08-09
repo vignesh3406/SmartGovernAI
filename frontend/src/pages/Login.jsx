@@ -34,7 +34,12 @@ export default function Login() {
         else navigate('/citizen/dashboard');
       }
     } catch (error) {
-      const msg = error?.response?.data?.message || 'Invalid email or password. Please try again.';
+      let msg = 'Invalid email or password. Please try again.';
+      if (!error.response || error.code === 'ERR_NETWORK') {
+        msg = 'Cannot connect to backend server. Make sure backend is running.';
+      } else if (error.response?.data?.message) {
+        msg = error.response.data.message;
+      }
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -157,7 +162,7 @@ export default function Login() {
           </button>
           <button
             type="button"
-            onClick={() => { setEmail('officer@example.com'); setPassword('officerpassword123'); }}
+            onClick={() => { setEmail('road@example.com'); setPassword('roadpassword123'); }}
             className="py-2 px-2 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 dark:text-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors"
           >
             Department
