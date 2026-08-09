@@ -57,6 +57,14 @@ def seed():
             'is_staff': True
         },
         {
+            'email': 'electrical.worker@example.com',
+            'password': 'electricalpassword123',
+            'full_name': 'Electrical Dept Worker',
+            'role': officer_role,
+            'is_superuser': False,
+            'is_staff': True
+        },
+        {
             'email': 'sanitation@example.com',
             'password': 'sanitationpassword123',
             'full_name': 'Sanitation Dept Officer',
