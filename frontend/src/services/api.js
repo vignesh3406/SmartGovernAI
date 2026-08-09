@@ -1,6 +1,20 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://smartgovernai-2.onrender.com/api' : 'http://localhost:8000/api');
+const getApiUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+  if (isLocal) {
+    return envUrl || 'http://localhost:8000/api';
+  }
+
+  if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+    return envUrl;
+  }
+  return 'https://smartgovernai-2.onrender.com/api';
+};
+
+const API_URL = getApiUrl();
 
 const api = axios.create({
   baseURL: API_URL,
