@@ -48,19 +48,27 @@ class AdminDashboardView(APIView):
         # Avg resolution time
         avg_res = OfficerPerformance.objects.aggregate(Avg('average_resolution_time'))['average_resolution_time__avg'] or 0.0
 
+        total_resolved_all = resolved + closed
+        resolution_rate = round((total_resolved_all / total_complaints * 100), 1) if total_complaints > 0 else 0.0
+
         data = {
             "metrics": {
                 "total_citizens": total_citizens,
                 "total_officers": total_officers,
                 "total_departments": total_departments,
                 "total_complaints": total_complaints,
+                "issues_raised": total_complaints,
+                "issues_resolved": total_resolved_all,
                 "pending_complaints": pending,
                 "in_progress_complaints": in_progress,
                 "resolved_complaints": resolved,
+                "closed_complaints": closed,
+                "escalated_complaints": escalated,
                 "critical_complaints": critical,
                 "todays_complaints": todays_count,
                 "ai_analysis_completed": ai_analyzed,
-                "average_resolution_time": avg_res
+                "average_resolution_time": avg_res,
+                "resolution_rate_percent": resolution_rate
             }
         }
         return APIResponse(data=data, message="Admin dashboard metrics loaded successfully")
