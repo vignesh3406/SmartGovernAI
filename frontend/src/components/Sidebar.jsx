@@ -32,7 +32,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       )}
 
       <aside className={`
-        fixed top-0 bottom-0 left-0 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 
+        fixed top-0 bottom-0 left-0 w-64 glass-sidebar 
         z-50 lg:z-30 lg:static flex flex-col transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>

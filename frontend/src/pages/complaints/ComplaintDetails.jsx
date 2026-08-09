@@ -139,7 +139,7 @@ export default function ComplaintDetails() {
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       {/* Header Panel */}
-      <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="glass-card p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <span className="text-xs font-semibold text-slate-400">Grievance ID: {complaint.complaint_number}</span>
           <h1 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">{complaint.title}</h1>
@@ -154,7 +154,7 @@ export default function ComplaintDetails() {
         {/* Main Info */}
         <div className="lg:col-span-2 space-y-8">
           {/* Description */}
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm space-y-4">
+          <div className="glass-card p-6 rounded-3xl space-y-4">
             <h3 className="text-lg font-bold text-slate-800 dark:text-white">Grievance Description</h3>
             <p className="text-slate-600 dark:text-slate-350 text-sm leading-relaxed whitespace-pre-line">{complaint.description}</p>
 
@@ -169,7 +169,7 @@ export default function ComplaintDetails() {
 
           {/* Image Gallery & Resolution Evidence */}
           {(complaint.images?.length > 0 || complaint.evidence?.length > 0) && (
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm space-y-6">
+            <div className="glass-card p-6 rounded-3xl space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-white">Uploaded Photos & Work Evidence</h3>
                 <span className="text-xs font-semibold text-slate-400">
@@ -225,7 +225,7 @@ export default function ComplaintDetails() {
           )}
 
           {/* Timeline / Logs */}
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm space-y-6">
+          <div className="glass-card p-6 rounded-3xl space-y-6">
             <h3 className="text-lg font-bold text-slate-800 dark:text-white">Timeline Activity</h3>
             <div className="relative border-l-2 border-slate-100 dark:border-slate-850 ml-4 space-y-6">
               {complaint.timeline?.map((step) => (
@@ -247,7 +247,7 @@ export default function ComplaintDetails() {
         {/* Sidebar */}
         <div className="space-y-8">
           {/* Metadata details */}
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm space-y-4">
+          <div className="glass-card p-6 rounded-3xl space-y-4">
             <h4 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">Assignment Details</h4>
             
             <div className="space-y-3.5 text-sm text-slate-605">

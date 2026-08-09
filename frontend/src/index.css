@@ -1,3 +1,155 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  /* Glassmorphism Design Tokens */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.70);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark .glass-card {
+    background: rgba(15, 23, 42, 0.70);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  .dark .glass-card-hover:hover {
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
+    border-color: rgba(99, 102, 241, 0.25);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  }
+
+  .dark .glass-nav {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-sidebar {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(226, 232, 240, 0.6);
+  }
+
+  .dark .glass-sidebar {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.60);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(203, 213, 225, 0.70);
+    transition: all 0.2s ease;
+  }
+
+  .dark .glass-input {
+    background: rgba(30, 41, 59, 0.60);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.90);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  }
+
+  .dark .glass-input:focus {
+    background: rgba(30, 41, 59, 0.90);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+  }
+
+  .glass-button {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(99, 102, 241, 0.9) 100%);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .glass-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+  }
+
+  .glass-pill {
+    background: rgba(241, 245, 249, 0.7);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+  }
+
+  .dark .glass-pill {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Ambient Background Blobs for Glassmorphism Mesh */
+.ambient-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-slow 12s infinite alternate;
+}
+
+.ambient-bg::after {
+  content: '';
+  position: fixed;
+  bottom: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-slow 15s infinite alternate-reverse;
+}
+
+@keyframes pulse-slow {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.1) translate(30px, 20px); }
+  100% { transform: scale(0.95) translate(-20px, 40px); }
+}

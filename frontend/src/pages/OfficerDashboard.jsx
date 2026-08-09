@@ -99,19 +99,19 @@ export default function OfficerDashboard() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center space-y-1">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center space-y-1">
           <div className="text-2xl font-black text-slate-800 dark:text-white">{counts.total}</div>
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Assignments</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center space-y-1">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center space-y-1">
           <div className="text-2xl font-black text-amber-500">{counts.pending}</div>
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Acceptance</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center space-y-1">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center space-y-1">
           <div className="text-2xl font-black text-blue-500">{counts.accepted + counts.in_progress}</div>
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Active Workload</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center space-y-1">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center space-y-1">
           <div className="text-2xl font-black text-emerald-500">{counts.completed}</div>
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Resolved Tickets</div>
         </div>
@@ -119,7 +119,7 @@ export default function OfficerDashboard() {
 
       {/* Stats Details Card */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm flex items-center justify-between">
+        <div className="glass-card glass-card-hover p-6 rounded-2xl flex items-center justify-between">
           <div className="space-y-1">
             <h4 className="text-sm font-bold text-slate-800 dark:text-white">Average Resolution Speed</h4>
             <p className="text-xs text-slate-450">Typical time duration from assignment to full resolution.</p>
@@ -129,7 +129,7 @@ export default function OfficerDashboard() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm flex items-center justify-between">
+        <div className="glass-card glass-card-hover p-6 rounded-2xl flex items-center justify-between">
           <div className="space-y-1">
             <h4 className="text-sm font-bold text-slate-800 dark:text-white">Citizen Review Ratings</h4>
             <p className="text-xs text-slate-455">Average feedback stars given by citizens for resolved work.</p>
@@ -141,7 +141,7 @@ export default function OfficerDashboard() {
       </div>
 
       {/* Search & Filter */}
-      <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm flex flex-col md:flex-row gap-4 items-center">
+      <div className="glass-card p-5 rounded-2xl flex flex-col md:flex-row gap-4 items-center">
         <div className="relative flex-1 w-full">
           <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
             <Search className="w-5 h-5" />
@@ -151,14 +151,14 @@ export default function OfficerDashboard() {
             placeholder="Search by Grievance ID or title..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm dark:text-white"
+            className="w-full pl-11 pr-4 py-2.5 glass-input rounded-xl outline-none text-sm dark:text-white"
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="w-full md:w-48 px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm dark:text-white outline-none"
+          className="w-full md:w-48 px-4 py-2.5 glass-input rounded-xl text-sm dark:text-white outline-none"
         >
           <option value="">All Statuses</option>
           <option value="Assigned">Assigned (New)</option>
@@ -172,7 +172,7 @@ export default function OfficerDashboard() {
       </div>
 
       {/* Worklist Grid */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm overflow-hidden">
+      <div className="glass-card rounded-3xl overflow-hidden">
         {filtered.length === 0 ? (
           <div className="p-12 text-center text-slate-500">
             <h3 className="text-lg font-bold text-slate-700 dark:text-slate-350">No assignments matching criteria</h3>

@@ -78,7 +78,7 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               required
-              className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:text-white placeholder-slate-400 transition-all"
+              className="w-full pl-10 pr-4 py-3 glass-input rounded-xl outline-none text-sm dark:text-white placeholder-slate-400"
             />
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
-              className="w-full pl-10 pr-11 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:text-white placeholder-slate-400 transition-all"
+              className="w-full pl-10 pr-11 py-3 glass-input rounded-xl outline-none text-sm dark:text-white placeholder-slate-400"
             />
             <button
               type="button"
@@ -124,7 +124,7 @@ export default function Login() {
           id="login-submit"
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-4 flex items-center justify-center gap-2 font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all duration-200 text-sm"
+          className="w-full py-3.5 glass-button text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
         >
           {loading ? (
             <>

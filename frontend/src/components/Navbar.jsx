@@ -9,7 +9,7 @@ export default function Navbar({ onToggleSidebar }) {
   const { user, logout, isAuthenticated } = useAuth();
 
   return (
-    <nav className="h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm transition-colors duration-200">
+    <nav className="h-16 glass-nav px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm transition-colors duration-200">
       <div className="flex items-center gap-4">
         {isAuthenticated && (
           <button

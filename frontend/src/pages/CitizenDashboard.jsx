@@ -64,14 +64,14 @@ export default function CitizenDashboard() {
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header Banner */}
-      <div className="flex justify-between items-center gap-4 bg-gradient-to-r from-blue-600 to-indigo-600 p-8 rounded-3xl text-white shadow-xl shadow-blue-500/10">
+      <div className="flex justify-between items-center gap-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 p-8 rounded-3xl text-white shadow-xl shadow-blue-500/10 backdrop-blur-md">
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight">Citizen Service Hub</h1>
           <p className="text-blue-100 text-sm mt-1">Submit, monitor, and verify resolution of your civic grievances.</p>
         </div>
         <Link 
           to="/complaints/new" 
-          className="flex items-center gap-2 px-5 py-3 bg-white text-blue-650 font-bold text-sm rounded-xl shadow-md hover:scale-105 transition-transform"
+          className="flex items-center gap-2 px-5 py-3 bg-white/90 hover:bg-white text-blue-650 font-bold text-sm rounded-xl shadow-lg hover:scale-105 transition-all backdrop-blur-sm"
         >
           <PlusCircle className="w-5 h-5" /> File Grievance
         </Link>
@@ -79,26 +79,26 @@ export default function CitizenDashboard() {
 
       {/* Stats row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center">
           <div className="text-2xl font-bold text-slate-800 dark:text-white">{totalTickets}</div>
           <div className="text-xs text-slate-450 mt-0.5">Total Grievances</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center">
           <div className="text-2xl font-bold text-amber-500">{pendingTickets}</div>
           <div className="text-xs text-slate-450 mt-0.5">Awaiting Review</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center">
           <div className="text-2xl font-bold text-blue-500">{inProgressTickets}</div>
           <div className="text-xs text-slate-450 mt-0.5">In Progress</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm text-center">
+        <div className="glass-card glass-card-hover p-5 rounded-2xl text-center">
           <div className="text-2xl font-bold text-emerald-500">{resolvedTickets}</div>
           <div className="text-xs text-slate-450 mt-0.5">Resolved Issues</div>
         </div>
       </div>
 
       {/* Filter panel */}
-      <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm flex flex-col md:flex-row gap-4 items-center">
+      <div className="glass-card p-5 rounded-2xl flex flex-col md:flex-row gap-4 items-center">
         <div className="relative flex-1 w-full">
           <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
             <Search className="w-5 h-5" />
@@ -108,7 +108,7 @@ export default function CitizenDashboard() {
             placeholder="Search by ID or title..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm dark:text-white"
+            className="w-full pl-11 pr-4 py-2.5 glass-input rounded-xl outline-none text-sm dark:text-white"
           />
         </div>
 
@@ -116,7 +116,7 @@ export default function CitizenDashboard() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm dark:text-white outline-none"
+            className="px-4 py-2.5 glass-input rounded-xl text-sm dark:text-white outline-none"
           >
             <option value="">All Statuses</option>
             <option value="Pending">Pending</option>
@@ -128,7 +128,7 @@ export default function CitizenDashboard() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm dark:text-white outline-none"
+            className="px-4 py-2.5 glass-input rounded-xl text-sm dark:text-white outline-none"
           >
             <option value="">All Categories</option>
             {categories.map(cat => (
@@ -139,7 +139,7 @@ export default function CitizenDashboard() {
       </div>
 
       {/* Complaints List */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm overflow-hidden">
+      <div className="glass-card rounded-3xl overflow-hidden">
         {filteredComplaints.length === 0 ? (
           <div className="p-12 text-center text-slate-500">
             <FileText className="w-12 h-12 text-slate-300 mx-auto mb-4" />
