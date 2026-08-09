@@ -37,7 +37,6 @@ class EmailVerificationService:
         EmailVerificationToken.objects.filter(user=user, is_used=False).update(is_used=True)
 
     @staticmethod
-    @transaction.atomic
     def send_verification_email(user) -> bool:
         """
         Generates a token and dispatches the verification email.
