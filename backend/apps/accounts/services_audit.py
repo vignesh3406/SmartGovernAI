@@ -7,28 +7,31 @@ class AuditLogService:
     @staticmethod
     def log_action(user, action: str, request=None) -> AuditLog:
         """
-        Extracts client details and logs a user action.
+        Extracts client details and logs a user action safely.
         """
-        ip_address = None
-        user_agent = None
+        try:
+            ip_address = None
+            user_agent = None
 
-        if request:
-            # Extract IP Address
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ip_address = x_forwarded_for.split(',')[0].strip()
-            else:
-                ip_address = request.META.get('REMOTE_ADDR')
-            
-            # Extract User Agent
-            user_agent = request.META.get('HTTP_USER_AGENT')
+            if request:
+                x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+                if x_forwarded_for:
+                    ip = x_forwarded_for.split(',')[0].strip()
+                else:
+                    ip = request.META.get('REMOTE_ADDR')
+                
+                if ip and ':' in ip and '.' in ip:
+                    ip = ip.split(':')[0]
+                ip_address = ip
+                user_agent = request.META.get('HTTP_USER_AGENT')
 
-        # Check if user is anonymous (e.g. during failed login attempt)
-        log_user = user if isinstance(user, User) and user.is_authenticated else None
+            log_user = user if (user and getattr(user, 'is_authenticated', False)) else None
 
-        return AuditLog.objects.create(
-            user=log_user,
-            action=action,
-            ip_address=ip_address,
-            user_agent=user_agent
-        )
+            return AuditLog.objects.create(
+                user=log_user,
+                action=action,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+        except Exception:
+            return None
