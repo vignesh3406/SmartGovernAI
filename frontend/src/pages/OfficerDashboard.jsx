@@ -4,7 +4,7 @@ import api from '../services/api';
 import toast from 'react-hot-toast';
 import StatusBadge from '../components/master/StatusBadge';
 import PriorityBadge from '../components/master/PriorityBadge';
-import { Search, SlidersHorizontal, CheckSquare, RefreshCw, Star, Clock, Award, Eye, Navigation } from 'lucide-react';
+import { Search, SlidersHorizontal, CheckSquare, CheckCircle2, RefreshCw, Star, Clock, Award, Eye, Navigation } from 'lucide-react';
 
 export default function OfficerDashboard() {
   const [assignments, setAssignments] = useState([]);
@@ -40,6 +40,21 @@ export default function OfficerDashboard() {
       }
     } catch (err) {
       toast.error('Failed to accept assignment.');
+    }
+  };
+
+  const handleCompleteWork = async (complaintId) => {
+    try {
+      const res = await api.put(`/officer/status/${complaintId}/`, {
+        status: 'Resolved',
+        notes: 'Work marked completed by assigned officer. Issue resolved.'
+      });
+      if (res.data.success) {
+        toast.success('Work completed! Grievance marked as Resolved for citizen.');
+        loadData();
+      }
+    } catch (err) {
+      toast.error('Failed to update status to completed.');
     }
   };
 
@@ -184,9 +199,19 @@ export default function OfficerDashboard() {
                     {item.status === 'Assigned' && (
                       <button
                         onClick={() => handleAccept(complaint.id)}
-                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-755 text-white text-[11px] font-bold rounded-lg flex items-center gap-1 shadow-sm"
+                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold rounded-lg flex items-center gap-1 shadow-sm transition-all"
                       >
-                        <CheckSquare className="w-3.5 h-3.5" /> Accept
+                        <CheckSquare className="w-3.5 h-3.5" /> Accept Work
+                      </button>
+                    )}
+
+                    {['Accepted', 'Travelling', 'Arrived', 'In Progress'].includes(item.status) && (
+                      <button
+                        onClick={() => handleCompleteWork(complaint.id)}
+                        className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold rounded-lg flex items-center gap-1 shadow-sm transition-all"
+                        title="Mark Work Completed (Issue Resolved for Citizen)"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Work Completed
                       </button>
                     )}
 

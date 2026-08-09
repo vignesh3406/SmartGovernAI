@@ -370,13 +370,14 @@ export default function ComplaintDetails() {
                   )}
                 </div>
                 
-                {['Arrived', 'In Progress'].includes(complaint.status_detail?.status) && (
+                {['Accepted', 'Travelling', 'Arrived', 'In Progress'].includes(complaint.status_detail?.status) && (
                   <button
                     onClick={() => handleOfficerStatusUpdate('Resolved')}
                     disabled={updatingStatus}
-                    className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg disabled:opacity-50"
+                    className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 disabled:opacity-50 flex items-center justify-center gap-1.5 transition-all"
                   >
-                    Mark Resolved
+                    <CheckCircle2 className="w-4 h-4" />
+                    Work Completed (Mark Issue Resolved)
                   </button>
                 )}
               </div>
