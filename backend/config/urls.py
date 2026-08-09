@@ -7,7 +7,24 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+from django.http import JsonResponse
+
+def root_api_health(request):
+    return JsonResponse({
+        "status": "online",
+        "service": "SmartGov AI Backend API",
+        "version": "1.0.0",
+        "documentation": "/api/docs/swagger/",
+        "endpoints": {
+            "auth": "/api/auth/login/",
+            "register": "/api/auth/register/",
+            "complaints": "/api/complaints/",
+            "categories": "/api/categories/"
+        }
+    })
+
 urlpatterns = [
+    path('', root_api_health, name='api-root'),
     path('admin/', admin.site.urls),
     
     # Auth & Accounts endpoints
