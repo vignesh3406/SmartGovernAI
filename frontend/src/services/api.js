@@ -11,7 +11,7 @@ const getApiUrl = () => {
   if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
     return envUrl;
   }
-  return 'https://smartgovernai-2.onrender.com/api';
+  return 'https://smartgovernai-1.onrender.com/api';
 };
 
 const API_URL = getApiUrl();
