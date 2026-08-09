@@ -100,9 +100,9 @@ def seed():
             
             user.is_verified = True  # Auto-verify them for testing
             user.save()
-            print(f"✅ Created {user_data['role'].role_name}: {email} / {user_data['password']}")
+            print(f"[CREATED] {user_data['role'].role_name}: {email} / {user_data['password']}")
         else:
-            print(f"⚠️ User {email} already exists.")
+            print(f"[EXISTS] User {email} already exists.")
 
 if __name__ == '__main__':
     print("Starting database seeding...")
