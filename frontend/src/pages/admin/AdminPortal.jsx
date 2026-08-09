@@ -27,34 +27,36 @@ export default function AdminPortal() {
     loadDashboard();
   }, []);
 
-  if (loading) {
+  if (loading || !metrics) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex flex-col justify-center items-center h-64 space-y-3">
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
+        <p className="text-xs font-semibold text-slate-400">Loading system metrics & analytics...</p>
       </div>
     );
   }
 
   const cards = [
-    { label: 'Total Citizens Registered', count: metrics.total_citizens, icon: Users, color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/30' },
-    { label: 'Resolving Officers Active', count: metrics.total_officers, icon: Users, color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' },
-    { label: 'Total Issues Raised', count: metrics.issues_raised || metrics.total_complaints, icon: FileText, color: 'text-blue-500 bg-blue-50 dark:bg-blue-900/30' },
-    { label: 'Pending Action Queue', count: metrics.pending_complaints, icon: ShieldAlert, color: 'text-amber-600 bg-amber-50 dark:bg-amber-900/30' },
-    { label: 'In Progress Resolution', count: metrics.in_progress_complaints, icon: BarChart3, color: 'text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30' },
-    { label: 'Issues Successfully Resolved', count: metrics.issues_resolved || metrics.resolved_complaints, icon: CheckCircle, color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30' }
+    { label: 'Total Citizens Registered', count: metrics?.total_citizens || 0, icon: Users, color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/30' },
+    { label: 'Resolving Officers Active', count: metrics?.total_officers || 0, icon: Users, color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30' },
+    { label: 'Total Issues Raised', count: metrics?.issues_raised || metrics?.total_complaints || 0, icon: FileText, color: 'text-blue-500 bg-blue-50 dark:bg-blue-900/30' },
+    { label: 'Pending Action Queue', count: metrics?.pending_complaints || 0, icon: ShieldAlert, color: 'text-amber-600 bg-amber-50 dark:bg-amber-900/30' },
+    { label: 'In Progress Resolution', count: metrics?.in_progress_complaints || 0, icon: BarChart3, color: 'text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30' },
+    { label: 'Issues Successfully Resolved', count: metrics?.issues_resolved || metrics?.resolved_complaints || 0, icon: CheckCircle, color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30' }
   ];
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-8 font-sans">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-800 via-indigo-950 to-slate-900 p-8 rounded-3xl text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">System Administration Console</h1>
-          <p className="text-slate-400 text-sm mt-1">Central dashboard to audit security, analyze grievance resolution ratios, and manage system operations.</p>
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-8 rounded-3xl text-white shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border border-white/10 relative overflow-hidden">
+        <div className="space-y-1">
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest font-display">System Control & Operations</span>
+          <h1 className="text-3xl md:text-4xl font-black font-display tracking-tight text-white">Administration Console</h1>
+          <p className="text-slate-350 text-xs md:text-sm mt-1 max-w-xl">Real-time audit portal to monitor civic grievances raised, track resolution velocity, and manage authority workflows.</p>
         </div>
-        <div className="bg-white/10 border border-white/10 px-4 py-2.5 rounded-2xl text-xs flex items-center gap-2 backdrop-blur-md">
+        <div className="bg-white/10 border border-white/15 px-4 py-2.5 rounded-2xl text-xs flex items-center gap-2.5 backdrop-blur-md shrink-0">
           <Cpu className="w-5 h-5 text-emerald-400 animate-pulse" />
-          <span>AI Engine status: <strong>Operational</strong></span>
+          <span className="font-medium text-slate-200">AI Engine status: <strong className="text-emerald-400 font-bold">Operational</strong></span>
         </div>
       </div>
 
@@ -65,10 +67,10 @@ export default function AdminPortal() {
           return (
             <div key={i} className="glass-card glass-card-hover p-6 rounded-3xl flex items-center justify-between">
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{c.label}</span>
-                <div className="text-3xl font-black text-slate-800 dark:text-white mt-1">{c.count}</div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-display">{c.label}</span>
+                <div className="text-3xl md:text-4xl font-black font-number text-slate-800 dark:text-white mt-1 tracking-tight">{c.count}</div>
               </div>
-              <div className={`p-4 rounded-2xl ${c.color} shrink-0`}>
+              <div className={`p-4 rounded-2xl ${c.color} shrink-0 shadow-sm`}>
                 <Icon className="w-6 h-6" />
               </div>
             </div>

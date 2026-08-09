@@ -36,6 +36,8 @@ class AdminDashboardView(APIView):
         pending = complaints.filter(status__status='Pending').count()
         in_progress = complaints.filter(status__status='In Progress').count()
         resolved = complaints.filter(status__status='Resolved').count()
+        closed = complaints.filter(status__status='Closed').count()
+        escalated = complaints.filter(status__status='Escalated').count()
         critical = complaints.filter(priority__priority='Critical').count()
         
         # Today's complaints

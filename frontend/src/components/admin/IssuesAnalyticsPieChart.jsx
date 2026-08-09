@@ -33,20 +33,20 @@ export default function IssuesAnalyticsPieChart({ metrics }) {
       {/* Card Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-200/50 dark:border-slate-700/50 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-            <PieIcon className="w-4 h-4" /> Issues Analytics & Status Breakdown
+          <div className="flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest font-display">
+            <PieIcon className="w-4 h-4" /> Grievance Resolution Analytics
           </div>
-          <h2 className="text-xl font-extrabold text-slate-800 dark:text-white mt-1">
-            Grievances Raised vs. Resolved Overview
+          <h2 className="text-2xl font-black text-slate-800 dark:text-white mt-1 font-display tracking-tight">
+            Issues Raised vs. Issues Resolved
           </h2>
         </div>
 
         {/* Resolution Efficiency Badge */}
-        <div className="bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 px-4 py-2 rounded-2xl flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
+        <div className="bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/30 px-4 py-2.5 rounded-2xl flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 shadow-sm">
           <ShieldCheck className="w-5 h-5" />
           <div className="text-xs">
-            <span className="font-semibold">Resolution Rate: </span>
-            <strong className="text-sm font-black">{resPercent}%</strong>
+            <span className="font-semibold text-slate-500 dark:text-slate-400">Resolution Rate: </span>
+            <strong className="text-base font-black font-number text-emerald-600 dark:text-emerald-400">{resPercent}%</strong>
           </div>
         </div>
       </div>
@@ -54,14 +54,14 @@ export default function IssuesAnalyticsPieChart({ metrics }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* SVG Donut / Pie Chart Display */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-          <div className="relative w-56 h-56 flex items-center justify-center">
+          <div className="relative w-60 h-60 flex items-center justify-center">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
               {/* Background Track */}
               <circle
                 cx="100"
                 cy="100"
                 r={radius}
-                className="stroke-slate-100 dark:stroke-slate-800"
+                className="stroke-slate-100 dark:stroke-slate-800/80"
                 strokeWidth="24"
                 fill="transparent"
               />
@@ -96,34 +96,34 @@ export default function IssuesAnalyticsPieChart({ metrics }) {
 
             {/* Donut Center Overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-              <span className="text-3xl font-black text-slate-800 dark:text-white">{totalRaised}</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Raised</span>
+              <span className="text-4xl font-black font-number text-slate-800 dark:text-white tracking-tight">{totalRaised}</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-display mt-0.5">Issues Raised</span>
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400 mt-2 italic text-center">Hover over chart slices to inspect exact ratios</p>
+          <p className="text-[11px] text-slate-400 mt-3 italic text-center">Hover over slices to inspect specific issue volumes</p>
         </div>
 
         {/* Breakdown Statistics & Legends */}
-        <div className="lg:col-span-7 space-y-4">
+        <div className="lg:col-span-7 space-y-5">
           {/* Executive Summary Counters */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-4 rounded-2xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200/50 dark:border-blue-800/40">
-              <div className="flex items-center justify-between text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">
-                <span>Issues Raised</span>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/50 shadow-sm">
+              <div className="flex items-center justify-between text-xs text-blue-600 dark:text-blue-400 font-bold font-display uppercase tracking-wider mb-1">
+                <span>Total Issues Raised</span>
                 <AlertCircle className="w-4 h-4" />
               </div>
-              <div className="text-2xl font-black text-slate-800 dark:text-white">{totalRaised}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Total registered grievances</div>
+              <div className="text-3xl font-black font-number text-slate-800 dark:text-white">{totalRaised}</div>
+              <div className="text-[11px] text-slate-400 mt-1">100% registered grievances</div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200/50 dark:border-emerald-800/40">
-              <div className="flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">
-                <span>Issues Resolved</span>
+            <div className="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/50 shadow-sm">
+              <div className="flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-bold font-display uppercase tracking-wider mb-1">
+                <span>Total Issues Resolved</span>
                 <CheckCircle2 className="w-4 h-4" />
               </div>
-              <div className="text-2xl font-black text-slate-800 dark:text-white">{resolved}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">{resPercent}% successful resolution</div>
+              <div className="text-3xl font-black font-number text-emerald-600 dark:text-emerald-400">{resolved}</div>
+              <div className="text-[11px] text-emerald-600/80 dark:text-emerald-400/80 font-medium mt-1">{resPercent}% resolved successfully</div>
             </div>
           </div>
 
@@ -150,8 +150,8 @@ export default function IssuesAnalyticsPieChart({ metrics }) {
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <span className="text-xs font-extrabold text-slate-800 dark:text-white">{slice.count} tickets</span>
-                    <span className="text-[11px] font-bold px-2 py-0.5 bg-slate-200/60 dark:bg-slate-800 rounded-md text-slate-600 dark:text-slate-300 min-w-[50px] text-right">
+                    <span className="text-xs font-black font-number text-slate-800 dark:text-white">{slice.count} tickets</span>
+                    <span className="text-xs font-bold font-number px-2.5 py-0.5 bg-slate-200/70 dark:bg-slate-800 rounded-md text-slate-700 dark:text-slate-200 min-w-[55px] text-right shadow-2xs">
                       {pct}%
                     </span>
                   </div>
@@ -161,14 +161,14 @@ export default function IssuesAnalyticsPieChart({ metrics }) {
           </div>
 
           {/* Resolution Progress Bar */}
-          <div className="pt-2 space-y-1.5">
+          <div className="pt-2 space-y-2">
             <div className="flex justify-between text-xs font-semibold text-slate-500">
-              <span>Overall Resolution Completion</span>
-              <span className="font-bold text-emerald-600 dark:text-emerald-400">{resPercent}% Completed</span>
+              <span className="font-display uppercase tracking-wider text-[10px] font-bold text-slate-400">Resolution Completion SLA</span>
+              <span className="font-extrabold font-number text-emerald-600 dark:text-emerald-400">{resPercent}% Completed</span>
             </div>
-            <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-300/30 dark:border-slate-700/50">
+            <div className="w-full h-3.5 bg-slate-200/80 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-300/40 dark:border-slate-700/60 shadow-inner">
               <div 
-                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-1000 shadow-sm"
+                className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-1000 shadow-sm"
                 style={{ width: `${resPercent}%` }}
               />
             </div>
