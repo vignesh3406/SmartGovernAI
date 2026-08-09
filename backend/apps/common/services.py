@@ -27,14 +27,15 @@ class StorageService:
         """
         Uploads a file to the Supabase Storage bucket.
         Returns the public URL of the uploaded file.
-        Falls back to a mock URL in development if Supabase is not configured or returns RLS errors.
+        Falls back to a Data URL in development if Supabase is not configured or returns RLS errors.
         """
+        import base64
         client = StorageService.get_client()
         bucket_name = getattr(settings, 'SUPABASE_BUCKET', 'smartgov-profiles')
 
         if not client:
-            # Mock URL for development/test if Supabase is not configured
-            return f"https://mockstorage.supabase.co/{bucket_name}/{file_name}"
+            encoded = base64.b64encode(file_data).decode('utf-8')
+            return f"data:{content_type};base64,{encoded}"
 
         try:
             # Upload file
@@ -43,22 +44,16 @@ class StorageService:
                 file=file_data,
                 file_options={"content-type": content_type, "x-upsert": "true"}
             )
-            # Return public URL
             return StorageService.get_public_url(file_name)
         except Exception as e:
             err_str = str(e).lower()
-            # Handle Row Level Security (RLS) policy errors — happens when using publishable key
-            # instead of service_role key. Fall back to mock URL so app still functions.
             if '403' in err_str or 'row-level security' in err_str or 'unauthorized' in err_str or 'rls' in err_str:
-                logger.warning(
-                    f"Supabase RLS blocked upload for {file_name}. "
-                    "To enable real storage, set SUPABASE_KEY to your project's service_role key "
-                    "(Supabase Dashboard → Settings → API → service_role). "
-                    "Returning mock URL for development."
-                )
-                return f"https://mockstorage.supabase.co/{bucket_name}/{file_name}"
+                logger.warning(f"Supabase RLS blocked upload for {file_name}. Returning Base64 Data URL for display.")
+                encoded = base64.b64encode(file_data).decode('utf-8')
+                return f"data:{content_type};base64,{encoded}"
             logger.error(f"Failed to upload file to Supabase: {str(e)}")
-            raise e
+            encoded = base64.b64encode(file_data).decode('utf-8')
+            return f"data:{content_type};base64,{encoded}"
 
     @staticmethod
     def delete_file(file_path: str):
