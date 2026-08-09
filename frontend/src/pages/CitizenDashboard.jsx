@@ -5,7 +5,7 @@ import { getCategories } from '../services/complaints';
 import toast from 'react-hot-toast';
 import StatusBadge from '../components/master/StatusBadge';
 import PriorityBadge from '../components/master/PriorityBadge';
-import { PlusCircle, Search, SlidersHorizontal, MapPin, Eye, FileText } from 'lucide-react';
+import { PlusCircle, Search, SlidersHorizontal, MapPin, Eye, FileText, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function CitizenDashboard() {
   const [complaints, setComplaints] = useState([]);
@@ -62,18 +62,22 @@ export default function CitizenDashboard() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-8 font-sans">
       {/* Header Banner */}
-      <div className="flex justify-between items-center gap-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 p-8 rounded-3xl text-white shadow-xl shadow-blue-500/10 backdrop-blur-md">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Citizen Service Hub</h1>
-          <p className="text-blue-100 text-sm mt-1">Submit, monitor, and verify resolution of your civic grievances.</p>
+      <div className="flex justify-between items-center gap-6 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-900 p-8 rounded-3xl text-white shadow-2xl shadow-blue-900/20 backdrop-blur-md border border-white/10 relative overflow-hidden">
+        <div className="space-y-1 z-10">
+          <span className="text-[11px] font-bold text-teal-400 uppercase tracking-widest font-display">Civic Support Portal</span>
+          <h1 className="text-3xl md:text-4xl font-black font-display tracking-tight text-white">Citizen Service Hub</h1>
+          <p className="text-blue-100/80 text-xs md:text-sm max-w-xl">Submit, monitor, and verify real-time resolution of your civic grievances.</p>
         </div>
         <Link 
           to="/complaints/new" 
-          className="flex items-center gap-2 px-5 py-3 bg-white/90 hover:bg-white text-blue-650 font-bold text-sm rounded-xl shadow-lg hover:scale-105 transition-all backdrop-blur-sm"
+          className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-black text-sm rounded-2xl shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:scale-[1.04] active:scale-95 transition-all duration-300 border border-white/60 font-display shrink-0 overflow-hidden z-10"
         >
-          <PlusCircle className="w-5 h-5" /> File Grievance
+          <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          <Sparkles className="w-5 h-5 text-slate-950 group-hover:rotate-12 transition-transform duration-300" />
+          <span className="tracking-wide">File New Grievance</span>
+          <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform duration-300" />
         </Link>
       </div>
 
