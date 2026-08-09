@@ -17,35 +17,41 @@ class RegisterView(APIView):
 
     @extend_schema(summary="Register a new citizen account")
     def post(self, request):
-        email = request.data.get('email', '').strip().lower()
-        full_name = request.data.get('full_name', '').strip()
-        password = request.data.get('password', '')
-        phone = request.data.get('phone', '').strip() or None
-        role = request.data.get('role', 'citizen').strip().lower()
-
-        # Basic validation
-        if not email or not full_name or not password:
-            return APIResponse(
-                message="email, full_name and password are required.",
-                success=False,
-                status_code=status.HTTP_400_BAD_REQUEST
-            )
-
-        if len(password) < 8:
-            return APIResponse(
-                message="Password must be at least 8 characters.",
-                success=False,
-                status_code=status.HTTP_400_BAD_REQUEST
-            )
-
-        if User.objects.filter(email=email).exists():
-            return APIResponse(
-                message="An account with this email already exists.",
-                success=False,
-                status_code=status.HTTP_400_BAD_REQUEST
-            )
-
         try:
+            raw_email = request.data.get('email') or ''
+            raw_name = request.data.get('full_name') or ''
+            raw_pass = request.data.get('password') or ''
+            raw_phone = request.data.get('phone') or ''
+            raw_role = request.data.get('role') or 'citizen'
+
+            email = str(raw_email).strip().lower()
+            full_name = str(raw_name).strip()
+            password = str(raw_pass)
+            phone = str(raw_phone).strip() or None
+            role = str(raw_role).strip().lower()
+
+            # Basic validation
+            if not email or not full_name or not password:
+                return APIResponse(
+                    message="email, full_name and password are required.",
+                    success=False,
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
+
+            if len(password) < 8:
+                return APIResponse(
+                    message="Password must be at least 8 characters.",
+                    success=False,
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
+
+            if User.objects.filter(email=email).exists():
+                return APIResponse(
+                    message="An account with this email already exists.",
+                    success=False,
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
+
             if role == 'admin':
                 user = AuthService.create_admin(
                     email=email,
@@ -94,15 +100,18 @@ class LoginView(APIView):
 
     @extend_schema(summary="Login and obtain JWT tokens")
     def post(self, request):
-        email = request.data.get('email', '').strip().lower()
-        password = request.data.get('password', '')
+        try:
+            raw_email = request.data.get('email') or ''
+            raw_pass = request.data.get('password') or ''
+            email = str(raw_email).strip().lower()
+            password = str(raw_pass)
 
-        if not email or not password:
-            return APIResponse(
-                message="Email and password are required.",
-                success=False,
-                status_code=status.HTTP_400_BAD_REQUEST
-            )
+            if not email or not password:
+                return APIResponse(
+                    message="Email and password are required.",
+                    success=False,
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
 
         user = authenticate(request, username=email, password=password)
 
