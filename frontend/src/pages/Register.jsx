@@ -54,10 +54,21 @@ export default function Register() {
       let msg = 'Registration failed. Please try again.';
       if (!error.response || error.code === 'ERR_NETWORK') {
         msg = 'Cannot connect to backend server. Make sure backend is running.';
-      } else if (error.response?.data?.message) {
-        msg = error.response.data.message;
-      } else if (error.response?.data?.email?.[0]) {
-        msg = error.response.data.email[0];
+      } else if (error.response?.data) {
+        const data = error.response.data;
+        if (typeof data === 'string' && data.includes('<html>')) {
+          msg = 'Server internal error (500). Please try again in a few moments.';
+        } else if (data.message) {
+          msg = data.message;
+        } else if (data.detail) {
+          msg = data.detail;
+        } else if (data.email) {
+          msg = Array.isArray(data.email) ? data.email[0] : data.email;
+        } else if (data.errors) {
+          msg = typeof data.errors === 'string' ? data.errors : JSON.stringify(data.errors);
+        } else if (typeof data === 'string') {
+          msg = data;
+        }
       }
       toast.error(msg);
     } finally {
