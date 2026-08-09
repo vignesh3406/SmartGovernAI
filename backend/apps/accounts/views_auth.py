@@ -68,8 +68,12 @@ class RegisterView(APIView):
                     phone=phone
                 )
 
-            # Dispatch verification email
-            EmailVerificationService.send_verification_email(user)
+            # Dispatch verification email safely
+            try:
+                EmailVerificationService.send_verification_email(user)
+            except Exception as email_err:
+                pass
+
             AuditLogService.log_action(user, "User Registration", request)
 
             return APIResponse(
