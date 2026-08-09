@@ -13,6 +13,7 @@ export default function Register() {
     phone: '',
     password: '',
     confirmPassword: '',
+    role: 'citizen',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -41,6 +42,7 @@ export default function Register() {
         email: form.email,
         phone: form.phone,
         password: form.password,
+        role: form.role,
       };
       const response = await api.post('/auth/register/', payload);
 
@@ -86,6 +88,28 @@ export default function Register() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Role Selection */}
+        <div>
+          <label className="block text-xs font-bold text-slate-600 dark:text-slate-350 mb-1.5 tracking-wide uppercase">
+            Account Type
+          </label>
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none">
+              <Building2 className="w-4 h-4" />
+            </span>
+            <select
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 text-sm dark:text-white transition-all appearance-none"
+            >
+              <option value="citizen">Citizen</option>
+              <option value="officer">Concern Department (Officer)</option>
+              <option value="admin">System Admin</option>
+            </select>
+          </div>
+        </div>
+
         {/* Full Name */}
         <div>
           <label className="block text-xs font-bold text-slate-600 dark:text-slate-350 mb-1.5 tracking-wide uppercase">

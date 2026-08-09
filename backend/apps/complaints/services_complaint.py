@@ -105,7 +105,45 @@ class ComplaintService:
         except Exception:
             pass
 
-        # 4. Log timeline activity
+        # 4. Auto-assign to an available officer
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+
+        target_email = "municipality@example.com" # default fallback
+        if dept_name:
+            dept_lower = dept_name.lower()
+            if "road" in dept_lower:
+                target_email = "road@example.com"
+            elif "water" in dept_lower:
+                target_email = "water@example.com"
+            elif "electric" in dept_lower:
+                target_email = "electricity@example.com"
+            elif "sanitation" in dept_lower:
+                target_email = "sanitation@example.com"
+            elif "traffic" in dept_lower:
+                target_email = "traffic@example.com"
+                
+        assigned_officer = User.objects.filter(email=target_email, is_active=True).first()
+        if not assigned_officer:
+            # Fallback to any active officer
+            assigned_officer = User.objects.filter(role__role_name='officer', is_active=True).first()
+        
+        if assigned_officer:
+            from .models import OfficerAssignment
+            OfficerAssignment.objects.create(
+                complaint=complaint,
+                officer=assigned_officer,
+                status="Assigned"
+            )
+            # Log assignment timeline activity
+            ComplaintTimeline.objects.create(
+                complaint=complaint,
+                status_name="Assigned",
+                notes=f"Auto-assigned to {assigned_officer.full_name}.",
+                performed_by=citizen
+            )
+
+        # 5. Log timeline activity for submission
         ComplaintTimeline.objects.create(
             complaint=complaint,
             status_name="Submitted",
@@ -113,7 +151,7 @@ class ComplaintService:
             performed_by=citizen
         )
 
-        # 5. Dispatch email notification
+        # 6. Dispatch email notification
         ComplaintService.dispatch_status_email(complaint, "Submitted")
 
         return complaint

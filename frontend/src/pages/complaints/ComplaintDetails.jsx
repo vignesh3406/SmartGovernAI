@@ -134,7 +134,7 @@ export default function ComplaintDetails() {
   const isCitizenCreator = complaint.citizen_email === currentUser?.email;
   const isOfficerOrAdmin = currentUser?.role?.role_name === 'officer' || currentUser?.role?.role_name === 'admin';
   const showFeedbackForm = isCitizenCreator && complaint.status_detail?.status === 'Resolved';
-  const showOfficerActions = isOfficerOrAdmin && ['Pending', 'Submitted', 'Assigned', 'Accepted', 'In Progress'].includes(complaint.status_detail?.status);
+  const showOfficerActions = isOfficerOrAdmin && ['Pending', 'Submitted', 'Assigned', 'Accepted', 'Travelling', 'Arrived', 'In Progress'].includes(complaint.status_detail?.status);
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">

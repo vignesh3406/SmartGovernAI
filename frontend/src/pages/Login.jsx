@@ -135,6 +135,36 @@ export default function Login() {
         </button>
       </form>
 
+      {/* Quick Login for Demo */}
+      <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+        <p className="text-xs text-center text-slate-500 mb-4 uppercase tracking-wider font-semibold">
+          Demo Quick Login
+        </p>
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            type="button"
+            onClick={() => { setEmail('admin@example.com'); setPassword('adminpassword123'); }}
+            className="py-2 px-2 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 dark:text-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors"
+          >
+            Admin
+          </button>
+          <button
+            type="button"
+            onClick={() => { setEmail('citizen@example.com'); setPassword('citizenpassword123'); }}
+            className="py-2 px-2 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 dark:text-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors"
+          >
+            Citizen
+          </button>
+          <button
+            type="button"
+            onClick={() => { setEmail('officer@example.com'); setPassword('officerpassword123'); }}
+            className="py-2 px-2 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 dark:text-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg transition-colors"
+          >
+            Department
+          </button>
+        </div>
+      </div>
+
       {/* Footer link */}
       <div className="mt-7 text-center text-sm text-slate-500">
         Don't have an account?{' '}

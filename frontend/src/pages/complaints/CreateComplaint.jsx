@@ -187,8 +187,8 @@ export default function CreateComplaint() {
         title,
         description,
         category: categoryId,
-        latitude,
-        longitude,
+        latitude: latitude ? Number(parseFloat(latitude).toFixed(6)) : null,
+        longitude: longitude ? Number(parseFloat(longitude).toFixed(6)) : null,
         address,
         images
       };
@@ -202,7 +202,15 @@ export default function CreateComplaint() {
       }
     } catch (err) {
       console.error('Complaint submit error:', err.response?.data || err.message);
-      toast.error(err.response?.data?.message || 'Failed to submit grievance. Please try again.');
+      const errData = err.response?.data;
+      if (errData && errData.errors && Object.keys(errData.errors).length > 0) {
+        const errorStrings = Object.entries(errData.errors)
+          .map(([key, val]) => `${key}: ${Array.isArray(val) ? val.join(', ') : val}`)
+          .join(' | ');
+        toast.error(`Error: ${errorStrings}`);
+      } else {
+        toast.error(errData?.message || 'Failed to submit grievance. Please try again.');
+      }
     } finally {
       setSubmitting(false);
     }

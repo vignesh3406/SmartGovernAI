@@ -1,9 +1,12 @@
 from rest_framework import serializers
 from .models import OfficerAssignment, ComplaintEvidence, EscalationHistory, OfficerPerformance
 
+from .serializers import ComplaintSerializer
+
 class OfficerAssignmentSerializer(serializers.ModelSerializer):
     officer_name = serializers.CharField(source='officer.full_name', read_only=True)
     complaint_number = serializers.CharField(source='complaint.complaint_number', read_only=True)
+    complaint_detail = ComplaintSerializer(source='complaint', read_only=True)
 
     class Meta:
         model = OfficerAssignment

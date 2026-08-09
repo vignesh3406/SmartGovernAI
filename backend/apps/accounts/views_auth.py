@@ -21,6 +21,7 @@ class RegisterView(APIView):
         full_name = request.data.get('full_name', '').strip()
         password = request.data.get('password', '')
         phone = request.data.get('phone', '').strip() or None
+        role = request.data.get('role', 'citizen').strip().lower()
 
         # Basic validation
         if not email or not full_name or not password:
@@ -45,12 +46,28 @@ class RegisterView(APIView):
             )
 
         try:
-            user = AuthService.create_user(
-                email=email,
-                full_name=full_name,
-                password=password,
-                phone=phone
-            )
+            if role == 'admin':
+                user = AuthService.create_admin(
+                    email=email,
+                    full_name=full_name,
+                    password=password,
+                    phone=phone
+                )
+            elif role == 'officer':
+                user = AuthService.create_officer(
+                    email=email,
+                    full_name=full_name,
+                    password=password,
+                    phone=phone
+                )
+            else:
+                user = AuthService.create_user(
+                    email=email,
+                    full_name=full_name,
+                    password=password,
+                    phone=phone
+                )
+
             # Dispatch verification email
             EmailVerificationService.send_verification_email(user)
             AuditLogService.log_action(user, "User Registration", request)

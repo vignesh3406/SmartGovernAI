@@ -24,6 +24,11 @@ class OfficerWorkflowService:
             status="Accepted",
             defaults={"sequence": 4, "color": "#06b6d4"}
         )
+
+        if complaint.status == status_accepted:
+            assignment = OfficerAssignment.objects.filter(complaint=complaint, officer=officer).first()
+            if assignment:
+                return assignment
         complaint.status = status_accepted
         complaint.save()
 
@@ -50,6 +55,10 @@ class OfficerWorkflowService:
         Handles transition flows: Travelling, Arrived, In Progress, Resolved.
         """
         status_obj = ComplaintStatus.objects.get(status=status_name)
+        
+        if complaint.status == status_obj:
+            return complaint
+
         complaint.status = status_obj
         
         # Track timing
