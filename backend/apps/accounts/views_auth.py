@@ -113,32 +113,38 @@ class LoginView(APIView):
                     status_code=status.HTTP_400_BAD_REQUEST
                 )
 
-        user = authenticate(request, username=email, password=password)
+            user = authenticate(request, username=email, password=password)
 
-        if not user:
-            AuditLogService.log_action(None, f"Failed login attempt for {email}", request)
+            if not user:
+                AuditLogService.log_action(None, f"Failed login attempt for {email}", request)
+                return APIResponse(
+                    message="Invalid email or password.",
+                    success=False,
+                    status_code=status.HTTP_401_UNAUTHORIZED
+                )
+
+            if not user.is_active:
+                return APIResponse(
+                    message="Your account has been suspended. Please contact support.",
+                    success=False,
+                    status_code=status.HTTP_403_FORBIDDEN
+                )
+
+            # Generate JWT tokens
+            refresh = RefreshToken.for_user(user)
+            AuditLogService.log_action(user, "User Login", request)
+
             return APIResponse(
-                message="Invalid email or password.",
-                success=False,
-                status_code=status.HTTP_401_UNAUTHORIZED
+                data={
+                    "user": UserSerializer(user).data,
+                    "access": str(refresh.access_token),
+                    "refresh": str(refresh),
+                },
+                message=f"Welcome back, {user.full_name}!"
             )
-
-        if not user.is_active:
+        except Exception as e:
             return APIResponse(
-                message="Your account has been suspended. Please contact support.",
+                message=f"Login failed: {str(e)}",
                 success=False,
-                status_code=status.HTTP_403_FORBIDDEN
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
-        # Generate JWT tokens
-        refresh = RefreshToken.for_user(user)
-        AuditLogService.log_action(user, "User Login", request)
-
-        return APIResponse(
-            data={
-                "user": UserSerializer(user).data,
-                "access": str(refresh.access_token),
-                "refresh": str(refresh),
-            },
-            message=f"Welcome back, {user.full_name}!"
-        )
